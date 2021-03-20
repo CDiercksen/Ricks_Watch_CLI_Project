@@ -121,8 +121,38 @@ class CLI
     end
 
     def first_jump
-        
         puts "Wormhole sequence complete. Congratulations: you are alive."
+        puts "Run: NOT RICK PROTOCOLS"
+        puts "Please select a number. Would you like to:"
+        puts "[1] - Call Rick"
+        puts "[2] - Find local residents"
+        input = gets.chomp
+        if !input.to_i.between?(1, 2)
+            puts "Ha, you're hilarious."
+            first_jump
+        elsif input.to_i == 1 && New_location.all.last.name == "Earth (Replacement Dimension)"
+            puts "S.O.S. Rick Sanchez"
+            puts "Give me my watch back and get out of the garage."
+            puts "Congratulations, you successfully teleported to Earth. Come back any time."
+        elsif input.to_i == 1
+            @@help_counter -= 1
+            puts "<burp> oh crap, I told you never to <belch> touch my watch."
+            puts "That's a precious family heirloom I made last week."
+            puts "Looks like you're in #{New_location.all[0].name}."
+            puts "Ask around, I'm sure someone will get you back home <sniff>."
+            puts "And if they d-<BURP>-on't just remind them I'll turn their bodies into microscopic dog food for my pet Hepatitis."
+            puts "Oh but choose carefully, the watch only has enough b<burp>attery for #{@@jump_counter} more jumps."
+            first_jump
+        elsif input.to_i == 2 && @@jump_counter < 1
+            puts "zzzzzzz"
+        elsif input.to_i == 2 && @@help_counter > 0
+            puts "no one is willing to talk to you"
+            first_jump
+        else input.to_1 == 2 && @@help_counter < 1
+            puts "which resident would you like to speak to?"
+            New_location.residents
+        end
+
        binding.pry
     end
 
@@ -146,7 +176,6 @@ class CLI
 
 # #Elsif Jump_Counter == 3 && location_name != Earth
 # puts "S.O.S. Rick Sanchez"
-# puts "<burp> oh crap, I told you never to <belch> touch my watch. That's a precious family heirloom I made last week. Looks like you're in #{location_name}. Ask around, I'm sure someone will get you back home. <sniff> and if they d-<BURP>-on't just remind them I'll turn their bodies into microscopic dog food for my pet Hepatitis. Oh but choose carefully, the watch only has enough b<burp>attery for #{jump_counter} more jumps."
 
 # #If Jump_Counter == 2 && location_name != Earth
 # puts "S.O.S. Rick Sanchez"
