@@ -7,7 +7,7 @@ class CLI
         # Greet User
         # #Initialize - 
         # #Pull list of locations from Rick And Morty API
-        API.load_location_characters
+        API.load_location
         # #present user list of locations
         list_locations
         # #prompt user to input location ID
@@ -148,12 +148,16 @@ class CLI
         elsif input.to_i == 2 && @@help_counter > 0
             puts "no one is willing to talk to you"
             first_jump
-        else input.to_1 == 2 && @@help_counter < 1
+        else input.to_i == 2 && @@help_counter < 1
             puts "which resident would you like to speak to?"
-            New_location.residents
+            New_location.all[0].residents.each do | url |
+                API.load_characters(url)
+            end
+            Character.all
+            binding.pry
         end
 
-       binding.pry
+    #    binding.pry
     end
 
 
