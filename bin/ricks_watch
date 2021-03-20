@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'rest-client'
+require 'json'
+require 'pry'
+
+require_relative '../lib/cli'
+require_relative '../lib/api'
+require_relative '../lib/character'
+require_relative '../lib/location'
+
+#Changed Plain Text to Ruby, and it changed the file type icon?
+
+CLI.new.run
