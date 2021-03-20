@@ -118,11 +118,7 @@ class CLI
         puts "*                                         *  *"
     
 
-    def display_location_details
-        API.load_location_details.new_location_name
-        
-    end
-end
+
 
 
 
