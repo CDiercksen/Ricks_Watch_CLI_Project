@@ -1,19 +1,21 @@
 class CLI 
-    
+    @@jump_counter = 3
+    @@help_counter = 1
+
     def run
         # User logs in to Ricks Watch
         # Greet User
         # #Initialize - 
-        jump_Counter = 3
-        help_Counter = 1
         # #Pull list of locations from Rick And Morty API
         API.load_location_characters
         # #present user list of locations
         list_locations
         # #prompt user to input location ID
         opening_menu
+        puts "DNA Match: Not Found. Initializing Wormhole."
         wormhole
         # display_location_details
+        first_jump
         binding.pry
     end
     
@@ -37,7 +39,7 @@ class CLI
             # API.load_location_details(new_location)
             New_location.new(new_location)
         end
-        binding.pry
+        # binding.pry
     end
 
     def wormhole
@@ -116,7 +118,13 @@ class CLI
         puts "  *  *  *                       *  *  *  *  * "
         puts " *  *                                *  *  *  "
         puts "*                                         *  *"
-    
+    end
+
+    def first_jump
+        
+        puts "Wormhole sequence complete. Congratulations: you are alive."
+       binding.pry
+    end
 
 
 
@@ -125,9 +133,7 @@ class CLI
 
 
 # #Randomize location ID (.sample)
-# "DNA match: not found."
-# #Output "wormhole effects"
-# "Wormhole sequence complete. You are alive."
+
 # Would you like to:
 # [1] - Call Rick
 # [2] - Get Help from the locals
