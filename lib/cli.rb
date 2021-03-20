@@ -6,8 +6,11 @@ class CLI
         # #Initialize - 
         jump_Counter = 3
         help_Counter = 1
+        # #Pull list of locations from Rick And Morty API
         API.load_location_characters
+        # #present user list of locations
         list_locations
+        # #prompt user to input location ID
         opening_menu
         wormhole
         # display_location_details
@@ -32,9 +35,9 @@ class CLI
         else
             new_location = Location.all[input.to_i-1]
             # API.load_location_details(new_location)
-            new_location.name
-            binding.pry
+            New_location.new(new_location)
         end
+        binding.pry
     end
 
     def wormhole
@@ -122,9 +125,8 @@ class CLI
 end
 
 
-# #Pull list of locations from Rick And Morty API
-# #present user list of locations
-# #prompt user to input location ID
+
+
 
 # #Randomize location ID (.sample)
 # "DNA match: not found."
