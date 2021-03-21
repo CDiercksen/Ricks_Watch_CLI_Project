@@ -2,6 +2,7 @@ class CLI
     @@jump_counter = 3
     @@help_counter = 1
     @@character_selection = []
+    @@location_selection = []
 
     def run
         # User logs in to Ricks Watch
@@ -36,9 +37,7 @@ class CLI
             list_locations
             opening_menu
         else
-            new_location = Location.all[input.to_i-1]
-            # API.load_location_details(new_location)
-            New_location.new(new_location)
+            @@location_selection = Location.all[input.to_i-1]
         end
         # binding.pry
     end
@@ -123,7 +122,7 @@ class CLI
 
     def list_characters
         puts "Please input the number of the resident you would like to speak to"
-        New_location.all[0].residents.each do | url |
+        @@location_selection[0].residents.each do | url |
             API.load_characters(url)
             Character.all.each.with_index(1) do | person, i |
                 puts "#{i}. #{person.name}"
@@ -158,7 +157,7 @@ class CLI
         if !input.to_i.between?(1, 2)
             puts "Ha, you're hilarious."
             first_jump
-        elsif input.to_i == 1 && New_location.all.last.name == "Earth (Replacement Dimension)"
+        elsif input.to_i == 1 && @@location_selection[0].name == "Earth (Replacement Dimension)"
             puts "S.O.S. Rick Sanchez"
             puts "Give me my watch back and get out of the garage."
             puts "Congratulations, you successfully teleported to Earth. Come back any time."
@@ -166,7 +165,7 @@ class CLI
             @@help_counter -= 1
             puts "<burp> oh crap, I told you never to <belch> touch my watch."
             puts "That's a precious family heirloom I made last week."
-            puts "Looks like you're in #{New_location.all[0].name}."
+            puts "Looks like you're in #{@@location_selection[0].name}."
             puts "Ask around, I'm sure someone will get you back home <sniff>."
             puts "And if they d-<BURP>-on't just remind them I'll turn their bodies into microscopic dog food for my pet Hepatitis."
             puts "Oh but choose carefully, the watch only has enough b<burp>attery for #{@@jump_counter} more jumps."
