@@ -214,6 +214,7 @@ class CLI
 
     def good_job
         puts "Congratulations: you are back in Rick's Garage."
+        exit!
      end
 
        
