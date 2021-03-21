@@ -120,10 +120,34 @@ class CLI
         puts "*                                         *  *"
     end
 
+    def list_characters
+        puts "Please input the number of the resident you would like to speak to"
+        New_location.all[0].residents.each do | url |
+            API.load_characters(url)
+            Character.all.each.with_index(1) do | person, i |
+                puts "#{i}. #{person.name}"
+            end
+        end
+    end
+
+    def first_jump_menu
+        input = gets.chomp
+        if !input.to_i.between?(1, Character.all.count)
+            puts "Ha, you're hilarious."
+            list_characters
+            first_jump_menu
+        else
+            new_location = Location.all[input.to_i-1]
+            # API.load_location_details(new_location)
+            New_location.new(new_location)
+        end
+        # binding.pry
+    end
+
     def first_jump
         puts "Wormhole sequence complete. Congratulations: you are alive."
         puts "Run: NOT RICK PROTOCOLS"
-        puts "Please select a number. Would you like to:"
+        puts "Please input a number. Would you like to:"
         puts "[1] - Call Rick"
         puts "[2] - Find local residents"
         input = gets.chomp
@@ -149,16 +173,13 @@ class CLI
             puts "no one is willing to talk to you"
             first_jump
         else input.to_i == 2 && @@help_counter < 1
-            puts "which resident would you like to speak to?"
-            New_location.all[0].residents.each do | url |
-                API.load_characters(url)
-                Character.all.each.with_index(1) do | person, i |
-                    puts "#{i}. #{person.name}"
-                end
-            end
-            binding.pry
+           list_characters
+           first_jump_menu
         end
+            binding.pry
+    end
 
+       
     #    binding.pry
     end
 
@@ -212,4 +233,3 @@ class CLI
 # Would you like to:
 # [1] - Call Rick
 # [2] - Get Help from the locals -->
-end
