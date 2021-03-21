@@ -4,6 +4,14 @@ class CLI
     @@character_selection = []
     @@location_selection = []
 
+    # def self.location_clear
+    #     @@location_selection.clear
+    # end
+
+    # def self.character_clear
+    #     @@character_selection.clear
+    # end
+
     def run
         # User logs in to Ricks Watch
         # Greet User
@@ -18,7 +26,9 @@ class CLI
         wormhole
         # display_location_details
         first_jump
-        binding.pry
+        wormhole
+        good_job
+        # binding.pry
     end
     
     def list_locations
@@ -120,33 +130,7 @@ class CLI
         puts "*                                         *  *"
     end
 
-    def list_characters
-        puts "Please input the number of the resident you would like to speak to"
-        @@location_selection.residents.each do | url |
-            API.load_characters(url)
-            Character.all.each.with_index(1) do | person, i |
-                puts "#{i}. #{person.name}"
-            end
-        end
-    end
-
-    def first_jump_menu
-        input = gets.chomp
-        if !input.to_i.between?(1, Character.all.count)
-            puts "Ha, you're hilarious."
-            puts "Please input the number of the resident you would like to speak to"
-            Character.all.each.with_index(1) do | person, i |
-                puts "#{i}. #{person.name}"
-            end
-            first_jump_menu
-        else
-            @@character_selection << Character.all[input.to_i-1]
-            # binding.pry
-            @@character_selection[0].name
-        end
-        # binding.pry
-    end
-
+    
     def first_jump
         puts "Wormhole sequence complete. Congratulations: you are alive."
         puts "Run: NOT RICK PROTOCOLS"
@@ -173,16 +157,70 @@ class CLI
             puts "no one is willing to talk to you"
             first_jump
         else input.to_i == 2 && @@help_counter < 1
-           list_characters
-           first_jump_menu
+            list_characters
+            first_jump_menu
         end
-            binding.pry
+        # binding.pry
     end
+
+    def gameover
+        puts "Emergency Protocols Activated. Select your fate:"
+        puts "[1] Activate Time Machine"
+        puts "[2] Accept your fate"
+        input = gets.chomp
+        if !input.to_i.between?(1, 2)
+            puts "Incompetence Detected. Initialize self-destruct"
+            exit!
+        elsif input.to_i == 1
+           puts "In-App purchase: Time Machine - Not Found."
+           gameover
+        else
+            puts "<plays Incredible Hulk ending theme music 'Lonely Man'"
+            exit!
+        end
+    end
+
+    def list_characters
+        # binding.pry
+        if @@location_selection.residents.empty?
+            puts "No one is here. You will die of thirst in 5 days."
+            gameover
+        else
+        puts "Please input the number of the resident you would like to speak to"
+        @@location_selection.residents.each do | url |
+            API.load_characters(url)
+            Character.all.each.with_index(1) do | person, i |
+                puts "#{i}. #{person.name}"
+            end
+        end
+    end
+
+    def first_jump_menu
+        input = gets.chomp
+        if !input.to_i.between?(1, Character.all.count)
+            puts "Ha, you're hilarious."
+            puts "Please input the number of the resident you would like to speak to"
+            Character.all.each.with_index(1) do | person, i |
+                puts "#{i}. #{person.name}"
+            end
+            first_jump_menu
+        else
+            @@character_selection << Character.all[input.to_i-1]
+            # binding.pry
+            @@character_selection[0].name
+        end
+        # binding.pry
+    end
+
+    def good_job
+        puts "Congratulations: you are back in Rick's Garage."
+     end
 
        
     #    binding.pry
     end
 
+end
 
 
 
