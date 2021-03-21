@@ -1,6 +1,6 @@
 class Character 
 
-    attr_accessor :name, :url #:origin_name, :origin_url
+    attr_accessor :name, :url ,:origin_name, :origin_url
 
     @@all = []
     
@@ -16,6 +16,9 @@ class Character
     def self.all
         @@all
     end
-
+    
+    def self.clear
+        @@all.clear
+    end
 
 end
