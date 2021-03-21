@@ -152,8 +152,10 @@ class CLI
             puts "which resident would you like to speak to?"
             New_location.all[0].residents.each do | url |
                 API.load_characters(url)
+                Character.all.each.with_index(1) do | person, i |
+                    puts "#{i}. #{person.name}"
+                end
             end
-            Character.all
             binding.pry
         end
 
