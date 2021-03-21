@@ -134,10 +134,16 @@ class CLI
         input = gets.chomp
         if !input.to_i.between?(1, Character.all.count)
             puts "Ha, you're hilarious."
-            list_characters
+            puts "Please input the number of the resident you would like to speak to"
+            Character.all.each.with_index(1) do | person, i |
+                puts "#{i}. #{person.name}"
+            end
             first_jump_menu
         else
-            new_location = Location.all[input.to_i-1]
+            character_selection = []
+            character_selection << Character.all[input.to_i-1]
+            binding.pry
+            character_selection[0].name
             # API.load_location_details(new_location)
             New_location.new(new_location)
         end
