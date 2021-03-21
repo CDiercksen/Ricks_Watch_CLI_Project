@@ -122,7 +122,7 @@ class CLI
 
     def list_characters
         puts "Please input the number of the resident you would like to speak to"
-        @@location_selection[0].residents.each do | url |
+        @@location_selection.residents.each do | url |
             API.load_characters(url)
             Character.all.each.with_index(1) do | person, i |
                 puts "#{i}. #{person.name}"
@@ -141,7 +141,7 @@ class CLI
             first_jump_menu
         else
             @@character_selection << Character.all[input.to_i-1]
-            binding.pry
+            # binding.pry
             @@character_selection[0].name
         end
         # binding.pry
@@ -153,6 +153,7 @@ class CLI
         puts "Please input a number. Would you like to:"
         puts "[1] - Call Rick"
         puts "[2] - Find local residents"
+        # binding.pry
         input = gets.chomp
         if !input.to_i.between?(1, 2)
             puts "Ha, you're hilarious."
@@ -161,7 +162,7 @@ class CLI
             @@help_counter -= 1
             puts "<burp> oh crap, I told you never to <belch> touch my watch."
             puts "That's a precious family heirloom I made last week."
-            puts "Looks like you're in #{@@location_selection[0].name}."
+            puts "Looks like you're in #{@@location_selection.name}."
             puts "Ask around, I'm sure someone will get you back home <sniff>."
             puts "And if they d-<BURP>-on't just remind them I'll turn their bodies into microscopic dog food for my pet Hepatitis."
             puts "Oh but choose carefully, the watch only has enough b<burp>attery for #{@@jump_counter} more jumps."
