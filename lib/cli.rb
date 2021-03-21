@@ -157,10 +157,6 @@ class CLI
         if !input.to_i.between?(1, 2)
             puts "Ha, you're hilarious."
             first_jump
-        elsif input.to_i == 1 && @@location_selection[0].name == "Earth (Replacement Dimension)"
-            puts "S.O.S. Rick Sanchez"
-            puts "Give me my watch back and get out of the garage."
-            puts "Congratulations, you successfully teleported to Earth. Come back any time."
         elsif input.to_i == 1
             @@help_counter -= 1
             puts "<burp> oh crap, I told you never to <belch> touch my watch."
