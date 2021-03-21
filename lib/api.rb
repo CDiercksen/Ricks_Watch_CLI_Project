@@ -3,7 +3,7 @@ class API
         resp_location = RestClient.get("https://rickandmortyapi.com/api/location")
         location_hash  = JSON.parse(resp_location.body, symbolize_names: true)
         location_array = location_hash[:results]
-
+        
         
         location = location_array.collect do | locale |
             # name = locale[:name]
@@ -16,11 +16,11 @@ class API
     end
     
     def self.load_characters(url)
+        character_array = []
         resp_character = RestClient.get(url)
         character_hash = JSON.parse(resp_character.body, symbolize_names: true)
-        character_array = character_hash[:name]
-    binding.pry
-     character = character_array.collect do | char |
+        character_array << character_hash
+        character = character_array.collect do | char |
         # name = locale[:name]
         # url = locale[:url]
         # residents = locale[:residents]
