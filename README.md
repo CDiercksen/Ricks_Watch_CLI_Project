@@ -15,3 +15,5 @@ Contributors
 Thanks to the following people who have contributed to this project:
 
 @CDiercksen
+
+This project uses the following license: https://opensource.org/licenses/MIT
