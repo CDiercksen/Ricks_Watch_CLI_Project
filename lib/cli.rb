@@ -1,16 +1,11 @@
 class CLI 
-    @@jump_counter = 3
+    @@jump_counter = 1
     @@help_counter = 1
     @@character_selection = []
-    @@location_selection = []
+    @@first_location_selection = []
 
-    # def self.location_clear
-    #     @@location_selection.clear
-    # end
 
-    # def self.character_clear
-    #     @@character_selection.clear
-    # end
+
 
     def run
         # User logs in to Ricks Watch
@@ -22,63 +17,35 @@ class CLI
         list_locations
         # #prompt user to input location ID
         opening_menu
-        puts "DNA Match: Not Found. Initializing Wormhole."
+        puts "DNA Match: Not Found. Initializing Wormhole.".light_red.bold
         wormhole
         # display_location_details
         first_jump
         wormhole
         good_job
-        # binding.pry
     end
     
     def list_locations
-        puts "Greetings, Rick Sanchez, where would you like to go?"
+        puts "Greetings, Rick Sanchez, where would you like to go?".light_cyan.bold
         #call our Location level all variable and loop through to list the locations
         Location.all.each.with_index(1) do | locale, i |
-            puts "#{i}. #{locale.name}"
+            puts "#{i}. #{locale.name}".light_cyan
         end
     end
     
     def opening_menu
-        "Please select a number to travel to that location"
+        puts "Please select a number to travel to that location".light_cyan.bold
         input = gets.chomp
         if !input.to_i.between?(1, Location.all.count)
             puts "Ha, you're hilarious."
             list_locations
             opening_menu
         else
-            @@location_selection = Location.all[input.to_i-1]
+            @@first_location_selection = Location.all[input.to_i-1]
         end
-        # binding.pry
     end
 
     def wormhole
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
-        puts "*                                            *"
         puts "*        *                                   *"
         puts "*        *                                   *"
         puts "*        *                      *            *"
@@ -132,62 +99,59 @@ class CLI
 
     
     def first_jump
-        puts "Wormhole sequence complete. Congratulations: you are alive."
-        puts "Run: NOT RICK PROTOCOLS"
-        puts "Please input a number. Would you like to:"
-        puts "[1] - Call Rick"
-        puts "[2] - Find local residents"
-        # binding.pry
+        puts "Wormhole sequence complete. Congratulations: you are alive.".light_cyan.bold
+        puts "Run: NOT RICK PROTOCOLS".red.bold
+        puts "Please input a number. Would you like to:".light_cyan.bold
+        puts "[1] - Call Rick".light_cyan
+        puts "[2] - Find local residents".light_cyan
         input = gets.chomp
         if !input.to_i.between?(1, 2)
-            puts "Ha, you're hilarious."
+            puts "Ha, you're hilarious.".red.bold
             first_jump
         elsif input.to_i == 1
             @@help_counter -= 1
-            puts "<burp> oh crap, I told you never to <belch> touch my watch."
-            puts "That's a precious family heirloom I made last week."
-            puts "Looks like you're in #{@@location_selection.name}."
-            puts "Ask around, I'm sure someone will get you back home <sniff>."
-            puts "And if they d-<BURP>-on't just remind them I'll turn their bodies into microscopic dog food for my pet Hepatitis."
-            puts "Oh but choose carefully, the watch only has enough b<burp>attery for #{@@jump_counter} more jumps."
+            puts "<burp>Oh crap, I told you never to <belch> touch my watch.".yellow
+            puts "That's a precious family heirloom I made last week.".yellow
+            puts "Looks like you're in #{@@first_location_selection.name}.".yellow
+            puts "Ask around, I'm sure someone will get you back home #{"<sniff>".light_green}.".yellow
+            puts "And if they d-<BURP>-on't just remind them I'll turn their bodies into microscopic dog food for my pet Hepatitis.".yellow
+            puts "Oh but choose carefully, the watch only has enough b-<burp>attery for #{@@jump_counter} more jump.".yellow
             first_jump
         elsif input.to_i == 2 && @@jump_counter < 1
-            puts "zzzzzzz"
+            puts "zzzzzzz".magenta
         elsif input.to_i == 2 && @@help_counter > 0
-            puts "no one is willing to talk to you"
+            puts "No one is willing to talk to you".red.bold
             first_jump
         else input.to_i == 2 && @@help_counter < 1
             list_characters
             first_jump_menu
         end
-        # binding.pry
     end
 
     def gameover
-        puts "Emergency Protocols Activated. Select your fate:"
-        puts "[1] Activate Time Machine"
-        puts "[2] Accept your fate"
+        puts "Emergency Protocols Activated. Select your fate:".red.bold
+        puts "[1] Activate Time Machine".red
+        puts "[2] Accept your fate".red
         input = gets.chomp
         if !input.to_i.between?(1, 2)
-            puts "Incompetence Detected. Initialize self-destruct"
+            puts "Incompetence Detected. Initialize self-destruct".red.bold
             exit!
         elsif input.to_i == 1
-           puts "In-App purchase: Time Machine - Not Found."
+           puts "In-App purchase: Time Machine - Not Found.".red.bold
            gameover
         else
-            puts "<plays Incredible Hulk ending theme music 'Lonely Man'"
+            puts "<plays Incredible Hulk ending theme music 'Lonely Man'".green
             exit!
         end
     end
 
     def list_characters
-        # binding.pry
-        if @@location_selection.residents.empty?
-            puts "No one is here. You will die of thirst in 5 days."
+        if @@first_location_selection.residents.empty?
+            puts "No one is here. You will die of thirst in 5 days.".light_cyan.bold
             gameover
         else
-        puts "Please input the number of the resident you would like to speak to"
-        @@location_selection.residents.each do | url |
+        puts "Please input the number of the resident you would like to speak to".light_cyan.bold
+        @@first_location_selection.residents.each do | url |
             API.load_characters(url)
             Character.all.each.with_index(1) do | person, i |
                 puts "#{i}. #{person.name}"
@@ -198,27 +162,24 @@ class CLI
     def first_jump_menu
         input = gets.chomp
         if !input.to_i.between?(1, Character.all.count)
-            puts "Ha, you're hilarious."
+            puts "Ha, you're hilarious.".red
             puts "Please input the number of the resident you would like to speak to"
             Character.all.each.with_index(1) do | person, i |
-                puts "#{i}. #{person.name}"
+                puts "#{i}. #{person.name}".light_cyan
             end
             first_jump_menu
         else
             @@character_selection << Character.all[input.to_i-1]
-            # binding.pry
-            @@character_selection[0].name
+            puts "Warping to home thanks to #{@@character_selection[0].name}.".red.bold
         end
-        # binding.pry
     end
 
     def good_job
-        puts "Congratulations: you are back in Rick's Garage."
+        puts "Congratulations: you are back in Rick's Garage.".light_cyan.bold
+        Character.clear
+        Location.clear
         exit!
      end
-
-       
-    #    binding.pry
     end
 
 end
