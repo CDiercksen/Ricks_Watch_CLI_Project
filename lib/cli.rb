@@ -1,6 +1,7 @@
 class CLI 
     @@jump_counter = 3
     @@help_counter = 1
+    @@character_selection = []
 
     def run
         # User logs in to Ricks Watch
@@ -140,12 +141,9 @@ class CLI
             end
             first_jump_menu
         else
-            character_selection = []
-            character_selection << Character.all[input.to_i-1]
+            @@character_selection << Character.all[input.to_i-1]
             binding.pry
-            character_selection[0].name
-            # API.load_location_details(new_location)
-            New_location.new(new_location)
+            @@character_selection[0].name
         end
         # binding.pry
     end
