@@ -150,13 +150,13 @@ class CLI
             puts "No one is here. You will die of thirst in 5 days.".light_cyan.bold
             gameover
         else
-        puts "Please input the number of the resident you would like to speak to".light_cyan.bold
-        @@first_location_selection.residents.each do | url |
-            API.load_characters(url)
-            Character.all.each.with_index(1) do | person, i |
-                puts "#{i}. #{person.name}"
+            @@first_location_selection.residents.each do | url |
+                API.load_characters(url)
             end
-        end
+            puts "Please input the number of the resident you would like to speak to".light_cyan.bold
+            Character.all.each.with_index(1) do | person, i |
+                puts "#{i}. #{person.name}".light_cyan
+             end
     end
 
     def first_jump_menu
